@@ -1,17 +1,30 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useSyncExternalStore } from "react";
 import { localePath, type Locale } from "@/i18n/config";
 
+function subscribe(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+}
+
+function getBrowserPathname() {
+  return window.location.pathname;
+}
+
 export function LanguageSwitcher({ locale }: { locale: Locale }) {
-  const pathname = usePathname();
+  // usePathname() devolve o caminho interno (/pt, /pt/projetos) após o rewrite
+  // do proxy; window.location.pathname reflete a URL real do browser (/ , /projetos).
+  const browserPath = useSyncExternalStore(
+    subscribe,
+    getBrowserPathname,
+    () => "/",
+  );
 
   const targetLocale = locale === "pt" ? "en" : "pt";
-  const target = localePath(targetLocale, pathname);
+  const target = localePath(targetLocale, browserPath);
   const targetLabel = locale === "pt" ? "EN" : "PT";
 
-  // <a> em vez de <Link>: a troca de idioma recarrega a página, o que
-  // re-executa o script de tema e evita re-render do <html> no cliente.
   return (
     <a
       href={target}

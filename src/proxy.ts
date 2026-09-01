@@ -8,6 +8,14 @@ import { NextRequest, NextResponse } from "next/server";
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Corrige URLs malformadas geradas por versões antigas do seletor de idioma
+  const malformedFix = pathname.replace(/^\/en\/pt(?=\/|$)/, "/en");
+  if (malformedFix !== pathname) {
+    const url = request.nextUrl.clone();
+    url.pathname = malformedFix || "/en";
+    return NextResponse.redirect(url);
+  }
+
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     return NextResponse.next();
   }

@@ -8,8 +8,16 @@ export function isLocale(value: string): value is Locale {
 
 /** Remove prefixo /en ou /pt (rewrite interno) → caminho canônico. */
 export function stripLocalePrefix(path: string): string {
-  const stripped = path.replace(/^\/(en|pt)(?=\/|$)/, "") || "/";
-  return stripped.startsWith("/") ? stripped : `/${stripped}`;
+  let result = path || "/";
+  if (!result.startsWith("/")) result = `/${result}`;
+
+  let prev: string;
+  do {
+    prev = result;
+    result = result.replace(/^\/(en|pt)(?=\/|$)/, "") || "/";
+  } while (result !== prev);
+
+  return result;
 }
 
 /** Detecta locale a partir do pathname (inclui rewrite interno /pt). */

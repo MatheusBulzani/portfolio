@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Matheus Bulzani — Portfólio
 
-## Getting Started
+Site de portfólio profissional construído com **Next.js (App Router) + TypeScript + Tailwind CSS**, bilíngue (PT/EN).
 
-First, run the development server:
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Idiomas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Português** (padrão): URLs sem prefixo — `/`, `/projetos`, `/sobre`, `/contato`
+- **Inglês**: sob `/en` — `/en`, `/en/projetos`, `/en/sobre`, `/en/contato`
+- O seletor PT/EN fica na navbar. O roteamento é feito por `src/proxy.ts`.
+- Textos da interface: `src/i18n/dictionaries.ts` (objetos `pt` e `en`).
+- Conteúdo dos projetos: `src/data/projects.ts` (cada campo de texto tem versão `pt` e `en`).
 
-## Learn More
+## Estrutura
 
-To learn more about Next.js, take a look at the following resources:
+- `src/data/projects.ts` — **todo o conteúdo dos projetos/case studies** em PT e EN. Edite este arquivo para adicionar, remover ou alterar projetos sem tocar em componentes.
+- `src/i18n/` — configuração de idiomas (`config.ts`) e dicionários da interface (`dictionaries.ts`).
+- `src/lib/site.ts` — dados do site: nome, email, links (GitHub, LinkedIn, WhatsApp), stack principal, URL de produção e CVs por idioma.
+- `src/components/` — componentes (Navbar, Footer, Hero, ProjectCard, CaseStudyLayout, ProjectsGrid, ContactForm, ThemeToggle, LanguageSwitcher, Reveal).
+- `src/app/[locale]/` — páginas: Home, `/projetos`, `/projetos/[slug]`, `/sobre`, `/contato`, além de `sitemap.ts` e `robots.ts` na raiz de `app/`.
+- `public/projects/` — imagens dos projetos (capturas reais das páginas iniciais dos sites em produção).
+- `public/CV-*.pdf` — currículos para download (PT e EN), referenciados em `site.ts` (campo `cvUrl`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Personalização rápida
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Links e contatos**: tudo em `src/lib/site.ts`.
+2. **URL de produção**: ajuste `site.url` em `src/lib/site.ts` para o domínio real antes do deploy (usado no sitemap, robots e Open Graph).
 
-## Deploy on Vercel
+## Tema
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tema escuro por padrão com toggle claro/escuro persistido em `localStorage`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Pronto para deploy na [Vercel](https://vercel.com): basta importar o repositório. `npm run build` gera todas as páginas (PT e EN) estaticamente.

@@ -5,7 +5,7 @@ export const site = {
   author: "Matheus Bulzani",
   role: "Full-stack Developer",
   location: "Porto, Portugal",
-  url: "https://portfolio-q3n4ba4oo-matheus-bulzani.vercel.app/",
+  url: "https://portfolio-matheus-bulzani.vercel.app",
   email: "tete.bulzani@gmail.com",
   cvUrl: {
     pt: "/CV-Matheus-Bulzani-PT.pdf",

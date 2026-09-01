@@ -60,11 +60,6 @@ const pt = {
   caseStudy: {
     backToProjects: "Todos os projetos",
     label: "Case study",
-    liveButton: "Ver ao vivo",
-    codeButton: "Ver código",
-    demoTitle: "Teste você mesmo",
-    demoEmail: "email",
-    demoPassword: "senha",
     contextTitle: "Contexto e problema",
     decisionsTitle: "Stack e decisões técnicas",
     challengesTitle: "Desafios técnicos resolvidos",
@@ -239,11 +234,6 @@ const en: typeof pt = {
   caseStudy: {
     backToProjects: "All projects",
     label: "Case study",
-    liveButton: "View live",
-    codeButton: "View code",
-    demoTitle: "Try it yourself",
-    demoEmail: "email",
-    demoPassword: "password",
     contextTitle: "Context and problem",
     decisionsTitle: "Stack and technical decisions",
     challengesTitle: "Technical challenges solved",

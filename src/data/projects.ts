@@ -20,12 +20,6 @@ export interface ProjectDecision {
   description: string;
 }
 
-export interface ProjectDemoCredentials {
-  email: string;
-  password: string;
-  note?: string;
-}
-
 /** Projeto já resolvido para um idioma — o que os componentes consomem. */
 export interface Project {
   slug: string;
@@ -36,9 +30,6 @@ export interface Project {
   featured: boolean;
   tags: ProjectTag[];
   stack: string[];
-  liveUrl?: string;
-  repoUrl?: string;
-  demoCredentials?: ProjectDemoCredentials;
   image: string;
   imageAlt: string;
   context: string[];
@@ -58,17 +49,10 @@ interface ProjectSource {
   featured: boolean;
   tags: ProjectTag[];
   stack: Localized<string[]>;
-  liveUrl?: string;
-  repoUrl?: string;
   image: string;
   subtitle: Localized<string>;
   description: Localized<string>;
   imageAlt: Localized<string>;
-  demoCredentials?: {
-    email: string;
-    password: string;
-    note: Localized<string>;
-  };
   context: Localized<string[]>;
   decisions: Localized<ProjectDecision[]>;
   challenges: Localized<ProjectChallenge[]>;
@@ -87,7 +71,6 @@ const sources: ProjectSource[] = [
       pt: ["ASP.NET Core 8", "React 18", "MySQL", "EF Core", "Stripe", "Hangfire", "MailKit", "Docker Compose", "JWT"],
       en: ["ASP.NET Core 8", "React 18", "MySQL", "EF Core", "Stripe", "Hangfire", "MailKit", "Docker Compose", "JWT"],
     },
-    liveUrl: "https://essenciadoestilo.com.br/",
     image: "/projects/essencia-do-estilo.png",
     subtitle: {
       pt: "SaaS multi-tenant de gestão para barbearias e salões de beleza — com painel administrativo completo",
@@ -100,14 +83,6 @@ const sources: ProjectSource[] = [
     imageAlt: {
       pt: "Página inicial da plataforma Essência do Estilo",
       en: "Essência do Estilo platform homepage",
-    },
-    demoCredentials: {
-      email: "admin@teste.com",
-      password: "123456",
-      note: {
-        pt: "Acesso de demonstração ao painel administrativo — entre e explore a plataforma à vontade.",
-        en: "Demo access to the admin panel — log in and explore the platform freely.",
-      },
     },
     context: {
       pt: [
@@ -276,7 +251,6 @@ const sources: ProjectSource[] = [
       pt: ["TanStack Start", "React", "Bun", "Prisma", "MySQL", "TypeScript"],
       en: ["TanStack Start", "React", "Bun", "Prisma", "MySQL", "TypeScript"],
     },
-    liveUrl: "https://esaint.com.br/",
     image: "/projects/esaint-cosmeticos.png",
     subtitle: {
       pt: "Aplicação full-stack para marca brasileira de cosméticos",
@@ -411,7 +385,6 @@ const sources: ProjectSource[] = [
       pt: [".NET 8", "Clean Architecture", "Angular", "React", "TypeScript"],
       en: [".NET 8", "Clean Architecture", "Angular", "React", "TypeScript"],
     },
-    liveUrl: "https://gvicorrespondente.com.br/",
     image: "/projects/gvi-imobiliaria.png",
     subtitle: {
       pt: "Sistema de gestão para imobiliária",
@@ -534,8 +507,6 @@ const sources: ProjectSource[] = [
       pt: ["JavaScript", "HTML5", "CSS3", "Chart.js", "Azure Static Web Apps", "GitHub Actions", "Desenvolvimento com IA"],
       en: ["JavaScript", "HTML5", "CSS3", "Chart.js", "Azure Static Web Apps", "GitHub Actions", "AI-assisted development"],
     },
-    liveUrl: "https://calm-ground-0228f5e10.7.azurestaticapps.net",
-    repoUrl: "https://github.com/MatheusBulzani/simulador",
     image: "/projects/composto-simulador.png",
     subtitle: {
       pt: "Simulador de juros compostos desenvolvido com IA, do prompt ao deploy",
@@ -690,19 +661,10 @@ function resolve(source: ProjectSource, locale: Locale): Project {
     featured: source.featured,
     tags: source.tags,
     stack: source.stack[locale],
-    liveUrl: source.liveUrl,
-    repoUrl: source.repoUrl,
     image: source.image,
     subtitle: source.subtitle[locale],
     description: source.description[locale],
     imageAlt: source.imageAlt[locale],
-    demoCredentials: source.demoCredentials
-      ? {
-          email: source.demoCredentials.email,
-          password: source.demoCredentials.password,
-          note: source.demoCredentials.note[locale],
-        }
-      : undefined,
     context: source.context[locale],
     decisions: source.decisions[locale],
     challenges: source.challenges[locale],

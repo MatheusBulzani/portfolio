@@ -4,13 +4,10 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
-  ExternalLink,
-  KeyRound,
   Lightbulb,
   Target,
   Wrench,
 } from "lucide-react";
-import { GithubIcon } from "@/components/icons";
 import { Reveal } from "@/components/Reveal";
 import { TechBadge } from "@/components/TechBadge";
 import type { Project } from "@/data/projects";
@@ -55,57 +52,6 @@ export function CaseStudyLayout({
             <TechBadge key={tech} label={tech} size="md" />
           ))}
         </div>
-
-        {(project.liveUrl || project.repoUrl) && (
-          <div className="mt-6 flex flex-wrap gap-3">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-85"
-              >
-                {t.caseStudy.liveButton}
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            )}
-            {project.repoUrl && (
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-card-hover"
-              >
-                <GithubIcon className="h-4 w-4" />
-                {t.caseStudy.codeButton}
-              </a>
-            )}
-          </div>
-        )}
-
-        {project.demoCredentials && (
-          <div className="mt-6 rounded-xl border border-accent/30 bg-accent-soft p-5">
-            <p className="flex items-center gap-2 text-sm font-semibold">
-              <KeyRound className="h-4 w-4 text-accent" />
-              {t.caseStudy.demoTitle}
-            </p>
-            {project.demoCredentials.note && (
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {project.demoCredentials.note}
-              </p>
-            )}
-            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-sm">
-              <span>
-                <span className="text-muted">{t.caseStudy.demoEmail}: </span>
-                {project.demoCredentials.email}
-              </span>
-              <span>
-                <span className="text-muted">{t.caseStudy.demoPassword}: </span>
-                {project.demoCredentials.password}
-              </span>
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Imagem principal */}

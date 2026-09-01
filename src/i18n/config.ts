@@ -6,8 +6,21 @@ export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
 
+/** Remove prefixo /en ou /pt (rewrite interno) → caminho canônico. */
+export function stripLocalePrefix(path: string): string {
+  const stripped = path.replace(/^\/(en|pt)(?=\/|$)/, "") || "/";
+  return stripped.startsWith("/") ? stripped : `/${stripped}`;
+}
+
+/** Detecta locale a partir do pathname (inclui rewrite interno /pt). */
+export function localeFromPathname(pathname: string): Locale {
+  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
+  return defaultLocale;
+}
+
 /** Monta um href com prefixo de idioma (PT fica sem prefixo). */
 export function localePath(locale: Locale, path: string = "/"): string {
-  if (locale === defaultLocale) return path;
-  return path === "/" ? `/${locale}` : `/${locale}${path}`;
+  const canonical = stripLocalePrefix(path);
+  if (locale === defaultLocale) return canonical;
+  return canonical === "/" ? `/${locale}` : `/${locale}${canonical}`;
 }

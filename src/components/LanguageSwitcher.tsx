@@ -1,15 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import type { Locale } from "@/i18n/config";
+import { localePath, type Locale } from "@/i18n/config";
 
 export function LanguageSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname();
 
-  // Caminho sem o prefixo /en (o PT não tem prefixo)
-  const basePath = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
-  const target =
-    locale === "pt" ? (basePath === "/" ? "/en" : `/en${basePath}`) : basePath;
+  const targetLocale = locale === "pt" ? "en" : "pt";
+  const target = localePath(targetLocale, pathname);
   const targetLabel = locale === "pt" ? "EN" : "PT";
 
   // <a> em vez de <Link>: a troca de idioma recarrega a página, o que
